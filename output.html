@@ -4,45 +4,6 @@
 </body>
 </html>
 <script>
-	var text = "This is a test!"
-var start = true;
-var particles = [];
-function frame() {
-  c=document.querySelector("canvas");
-  c.width=innerWidth;
-  c.height=innerHeight;
-  ctx=c.getContext("2d");
-  //-=-//
-  ctx.fillStyle="white";
-  ctx.textAlign="center";
-  ctx.font="70px monospace";
-  ctx.fillText(text,innerWidth/2,innerHeight/2);
-  if(start) {
-    start=false;
-    var imagedata = ctx.getImageData(0,0,innerWidth,innerHeight);
-  var data = imagedata.data;
-  for(var i=0;i<data.length;i+=4) {
-    if(data[i]!==0||data[i+1]!==0||data[i+2]!==0) {
-     var pos = coordToPosition(i/4);
-     particles.push([pos[0],pos[1]]);
-    }
-  }
-  }
-  for(var i=0;i<particles.length;i++) {
-    ctx.fillStyle="red";
-    ctx.fillRect(particles[i][0],particles[i][1],1,1);
-  }
-}
-function coordToPosition(a) {
-  var as = Math.floor(a/innerWidth);
-  var y = as;
-  a-=as*innerWidth;
-  return [a,y];
-}
-(()=>{
-  setInterval(frame);
-})();
-
 (()=>{
 var console = {
 	log:function(){
