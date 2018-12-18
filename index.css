@@ -38,6 +38,9 @@ textarea, .main, .htmlt, .csst, .jst {
   background: black;
   user-select: none;
 }
+.html, .css, .js {
+  overflow: auto;
+}
 .htmlt, .csst, .jst {
   background: #222;
   color: white;
