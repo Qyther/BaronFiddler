@@ -3,18 +3,24 @@
   height: 94.2vh;
   resize: none;
   left: 0;
+  font-family: monospace;
+  font-size: 14px;
 }
 .css, .csst {
   width: 25vw;
   height: 94.2vh;
   resize: none;
   left: 25vw;
+  font-family: monospace;
+  font-size: 14px;
 }
 .js, .jst {
   width: 25vw;
   height: 94.2vh;
   resize: none;
   left: 50vw;
+  font-family: monospace;
+  font-size: 14px;
 }
 textarea, .main, .htmlt, .csst, .jst {
   position: fixed;
