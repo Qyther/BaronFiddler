@@ -24,7 +24,6 @@ var console = {
 
 };
 setTimeout(()=>{
-
 		if(localStorage.getItem("HTML")!==(null||undefined)&&localStorage.getItem("CSS")!==(null||undefined)) document.body.innerHTML = localStorage.getItem("HTML") + "<style>"+localStorage.getItem("CSS")+"</style>";
 		else if(localStorage.getItem("HTML")!==(null||undefined)) document.body.innerHTML = localStorage.getItem("HTML");
 		if(localStorage.getItem("JS")!==(null||undefined)&&localStorage.getItem("SHOULDJS")!==(null||undefined))

@@ -29,6 +29,7 @@ textarea, .main, .htmlt, .csst, .jst {
 }
 .htmlt, .csst, .jst {
   padding: 1px 0 0 3px;
+  word-wrap: break-word;
 }
 .main {
   width: 25vw;
@@ -39,14 +40,17 @@ textarea, .main, .htmlt, .csst, .jst {
   user-select: none;
 }
 .html, .css, .js {
-  overflow: auto;
+  display: block;
+  opacity: 0;
+  word-break: break-all;
 }
 .htmlt, .csst, .jst {
   background: #222;
   color: white;
   font-size: 14px;
   font-family: monospace;
-  overflow: auto;
+  overflow-y: auto;
+  word-break: break-all;
 }
 .htmlt::-webkit-scrollbar,.csst::-webkit-scrollbar,.jst::-webkit-scrollbar {
   width: 10px;
@@ -59,12 +63,9 @@ textarea, .main, .htmlt, .csst, .jst {
   background: #777; 
   border-radius: 10px;
 }
-.htmlt::-webkit-scrollbar-thumb:hover,.csst::-webkit-scrollbar-thumb:hover,.jst::-webkit-scrollbar-thumb:hover {
-  background: #666; 
-}
 textarea {
+  overflow: auto;
   outline: none;
-  opacity: 0;
   font-size: 14px;
   font-family: monospace;
 }

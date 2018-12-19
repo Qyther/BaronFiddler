@@ -63,6 +63,9 @@ setInterval(()=>{
 function replaceKeys(a,b) {
   if(b==="HTML") {
     var htmlwords = [
+      [" "," "],
+      ["&SPANHTML;","span class=htmlmarker"],
+      ["&OFFSETTED;","span class=offsetted"],
       ["\"","&ARROWL;span style=color:#ff9900&ARROWR;&QUOTE;","&QUOTE;&ARROWL;/span&ARROWR;","&ARROWL;/span&ARROWR;"],
       ["<","&ARROWL;span style=color:#9900a8&ARROWR;&lt;"],
       [">","&gt;&ARROWL;/span&ARROWR;&ARROWL;/span&ARROWR;"],
@@ -82,12 +85,15 @@ function replaceKeys(a,b) {
         else a=a.replace(htmlwords[i][0],htmlwords[i][2]);
         }
       } else
-      a=a.replace(new RegExp(htmlwords[i][0],"gi"),htmlwords[i][1])
+      a=a.replace(new RegExp(htmlwords[i][0],"gi"),htmlwords[i][1]);
       }
     return a;
   }
   if(b==="CSS") {
     var csswords = [
+      [" "," "],
+      ["&SPANCSS;","span class=cssmarker"],
+      ["&OFFSETTED;","span class=offsetted"],
       ["{","&ARROWL;span style=color:#ef4fff&ARROWR;{&ARROWL;/span&ARROWR;&ARROWL;span style=color:#dcccff&ARROWR;"],
       ["}","&ARROWL;span style=color:#ef4fff&ARROWR;}&ARROWL;/span&ARROWR;&ARROWL;/span&ARROWR;"],
       ["<","&lt;"],
@@ -107,12 +113,15 @@ function replaceKeys(a,b) {
         else a=a.replace(csswords[i][0],csswords[i][2]);
         }
       } else
-      a=a.replace(new RegExp(csswords[i][0],"gi"),csswords[i][1])
+      a=a.replace(new RegExp(csswords[i][0],"gi"),csswords[i][1]);
       }
     return a;
   }
   if(b==="JS") {
     var jswords = [
+      [" "," "],
+      ["&SPANJS;","span class=jsmarker"],
+      ["&OFFSETTED;","span class=offsetted"],
       ["\"","&ARROWL;span style=color:#52d800&ARROWR;&QUOTE;","&QUOTE;&ARROWL;/span&ARROWR;","&ARROWL;/span&ARROWR;"],
       ["var","&ARROWL;span style=color:#AA0D91&ARROWR;var&ARROWL;/span&ARROWR;"],
       ["new","&ARROWL;span style=color:#AA0D91&ARROWR;new&ARROWL;/span&ARROWR;"],
@@ -135,7 +144,7 @@ function replaceKeys(a,b) {
         else a=a.replace(jswords[i][0],jswords[i][2]);
         }
       } else
-      a=a.replace(new RegExp(jswords[i][0],"gi"),jswords[i][1])
+      a=a.replace(new RegExp(jswords[i][0],"gi"),jswords[i][1]);
       }
     return a;
   }
@@ -144,22 +153,27 @@ var fullscreen = false;
 var change = true;
 var savep = [];
 setInterval(()=>{
+  
+  document.getElementsByClassName("htmlt")[0].scrollTop+=(document.getElementsByClassName("html")[0].scrollTop+document.getElementsByClassName("htmlt")[0].scrollTop);
+  document.getElementsByClassName("csst")[0].scrollTop+=(document.getElementsByClassName("css")[0].scrollTop+document.getElementsByClassName("csst")[0].scrollTop);
+  document.getElementsByClassName("jst")[0].scrollTop+=(document.getElementsByClassName("js")[0].scrollTop-document.getElementsByClassName("jst")[0].scrollTop);
+});
+setInterval(()=>{
+  var off = -14;
   document.getElementsByClassName("autoruncheck")[0].innerHTML = "Automatically run HTML and CSS ("+(autorun.toString().slice(0,1).toUpperCase()+autorun.toString().slice(1))+")";
   document.getElementsByClassName("autoruncheckjs")[0].innerHTML = "Automatically run HTML, CSS and JS ("+(runjs.toString().slice(0,1).toUpperCase()+runjs.toString().slice(1))+")";
   document.getElementsByClassName("htmlt")[0].style.width = document.getElementsByClassName("resizehtml")[0].offsetLeft-10+"px";
   document.getElementsByClassName("csst")[0].style.width = (document.getElementsByClassName("resizecss")[0].offsetLeft-10-document.getElementsByClassName("resizehtml")[0].offsetLeft)+"px";
   document.getElementsByClassName("jst")[0].style.width = (document.getElementsByClassName("resizejs")[0].offsetLeft-10-document.getElementsByClassName("resizecss")[0].offsetLeft)+"px";
-  document.getElementsByClassName("html")[0].style.width = document.getElementsByClassName("htmlt")[0].clientWidth-10+"px";
-  document.getElementsByClassName("css")[0].style.width = document.getElementsByClassName("csst")[0].clientWidth-10+"px";
-  document.getElementsByClassName("js")[0].style.width = document.getElementsByClassName("jst")[0].clientWidth-10+"px";
+  document.getElementsByClassName("html")[0].style.width = document.getElementsByClassName("htmlt")[0].clientWidth-off+"px";
+  document.getElementsByClassName("css")[0].style.width = document.getElementsByClassName("csst")[0].clientWidth-off+"px";
+  document.getElementsByClassName("js")[0].style.width = document.getElementsByClassName("jst")[0].clientWidth-off+"px";
   document.getElementsByClassName("main")[0].style.width = (innerWidth-document.getElementsByClassName("resizejs")[0].offsetLeft)-10+"px";
   document.getElementsByClassName("csst")[0].style.left = document.getElementsByClassName("resizehtml")[0].offsetLeft+"px";
   document.getElementsByClassName("jst")[0].style.left = document.getElementsByClassName("resizecss")[0].offsetLeft+"px";
   document.getElementsByClassName("css")[0].style.left = document.getElementsByClassName("csst")[0].offsetLeft+"px";
   document.getElementsByClassName("js")[0].style.left = document.getElementsByClassName("jst")[0].offsetLeft+"px";
   document.getElementsByClassName("main")[0].style.left = document.getElementsByClassName("resizejs")[0].offsetLeft+"px";
-
-
   if(fullscreen) {
     savep[0]=document.getElementsByClassName("main")[0].offsetLeft;
     savep[1]=document.getElementsByClassName("main")[0].clientWidth;
@@ -184,7 +198,7 @@ setInterval(()=>{
   document.getElementsByClassName("htmlt")[0].innerHTML = 
   replaceKeys("&ARROWL;span&ARROWR;"+
   thtml.value.slice(0,startPosition)+
-  "&ARROWL;span class=htmlmarker&ARROWR;|&ARROWL;/span&ARROWR;&ARROWL;span class=offsetted&ARROWR;"+
+  "&ARROWL;&SPANHTML;&ARROWR;|&ARROWL;/span&ARROWR;&ARROWL;&OFFSETTED;&ARROWR;"+
   thtml.value.slice(startPosition,recds+startPosition)+
   "&ARROWL;/span&ARROWR;\n"+
   thtml.value.slice(recsd+startPosition+1),"HTML");
@@ -192,7 +206,7 @@ setInterval(()=>{
     document.getElementsByClassName("htmlt")[0].innerHTML =
     ("&ARROWL;span&ARROWR;"+
     thtml.value.slice(0,startPosition)+
-    "&ARROWL;span class=selected&ARROWR;"+thtml.value.slice(startPosition,endPosition)+"&ARROWL;/span;&ARROWR;&ARROWL;/span&ARROWR;&ARROWL;span&ARROWR;"+
+    "&ARROWL;aspn class=selected&ARROWR;"+thtml.value.slice(startPosition,endPosition)+"&ARROWL;/span;&ARROWR;&ARROWL;/span&ARROWR;&ARROWL;span&ARROWR;"+
     thtml.value.slice(endPosition,thtml.value.length)+"&ARROWL;/span&ARROWR;").replace(/</gi,"&lt;").replace(/>/gi,"&gt;").replace(/\n/gi,"<br>").replace(/&ARROWL;/gi,"<").replace(/&ARROWR;/gi,">");
   } else
     document.getElementsByClassName("htmlt")[0].innerHTML = replaceKeys(thtml.value,"HTML");
@@ -207,7 +221,7 @@ setInterval(()=>{
   document.getElementsByClassName("csst")[0].innerHTML = 
   replaceKeys("&ARROWL;span&ARROWR;"+
   tcss.value.slice(0,startPosition)+
-  "&ARROWL;span class=cssmarker&ARROWR;|&ARROWL;/span&ARROWR;&ARROWL;span class=offsetted&ARROWR;"+
+  "&ARROWL;&SPANCSS;&ARROWR;|&ARROWL;/span&ARROWR;&ARROWL;&OFFSETTED;&ARROWR;"+
   tcss.value.slice(startPosition,recds+startPosition)+
   "&ARROWL;/span&ARROWR;\n"+
   tcss.value.slice(recsd+startPosition+1),"CSS");
@@ -230,7 +244,7 @@ setInterval(()=>{
   document.getElementsByClassName("jst")[0].innerHTML = 
   replaceKeys("&ARROWL;span&ARROWR;"+
   tjs.value.slice(0,startPosition)+
-  "&ARROWL;span class=jsmarker&ARROWR;|&ARROWL;/span&ARROWR;&ARROWL;span class=offsetted&ARROWR;"+
+  "&ARROWL;&SPANJS;&ARROWR;|&ARROWL;/span&ARROWR;&ARROWL;&OFFSETTED;&ARROWR;"+
   tjs.value.slice(startPosition,recds+startPosition)+
   "&ARROWL;/span&ARROWR;\n"+
   tjs.value.slice(recsd+startPosition+1),"JS");
@@ -270,6 +284,62 @@ setInterval(()=>{
     var show = document.getElementsByClassName("show")[0];
     var hide = document.getElementsByClassName("hide")[0];
     var consolebar = document.getElementsByClassName("consolebar")[0];
+    html.addEventListener("keydown",e=>{
+      if(e.key==="Tab") {
+        e.preventDefault();
+        var s = html.selectionStart+0;
+        var odin = html.value.slice(0,s);
+        var dva = html.value.slice(s);
+        var res = odin+"  "+dva;
+        html.value = res;
+        html.selectionStart = s+2;
+        html.selectionEnd = s+2;
+      }
+    });
+    css.addEventListener("keydown",e=>{
+      if(e.key==="Tab") {
+        e.preventDefault();
+        var s = css.selectionStart+0;
+        var odin = css.value.slice(0,s);
+        var dva = css.value.slice(s);
+        var res = odin+"  "+dva;
+        css.value = res;
+        css.selectionStart = s+2;
+        css.selectionEnd = s+2;
+      }
+    });
+    js.addEventListener("keydown",e=>{
+      if(e.key==="Tab") {
+        e.preventDefault();
+        var s = js.selectionStart+0;
+        var odin = js.value.slice(0,s);
+        var dva = js.value.slice(s);
+        var res = odin+"  "+dva;
+        js.value = res;
+        js.selectionStart = s+2;
+        js.selectionEnd = s+2;
+      }
+      if(e.key==="(") {
+        e.preventDefault();
+        var s = js.selectionStart+0;
+        var odin = js.value.slice(0,s);
+        var dva = js.value.slice(s);
+        var res = odin+"()"+dva;
+        js.value = res;
+        js.selectionStart = s+1;
+        js.selectionEnd = s+1;
+      }
+      if(e.key==="{") {
+        e.preventDefault();
+        var s = js.selectionStart+0;
+        var odin = js.value.slice(0,s);
+        var dva = js.value.slice(s);
+        var res = odin+"{}"+dva;
+        js.value = res;
+        js.selectionStart = s+1;
+        js.selectionEnd = s+1;
+      }
+    });
     show.addEventListener("mousedown",()=>{
       consolebar.style.display = "block";
       show.style.display="none";
